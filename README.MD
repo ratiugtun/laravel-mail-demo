@@ -3,7 +3,7 @@
 You can easily run this project by using Laradock.
 
 ```bash
-$ git clone --recurse-submodules
+$ git clone --recurse-submodules https://github.com/ratiugtun/laravel-mail-demo.git
 
 # Or if you forget to use --recurse-submodules on git clone
 $ git submodule update --init --recursive --remote
