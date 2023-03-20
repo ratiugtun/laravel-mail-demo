@@ -23,10 +23,15 @@ After all containers are running, install app dependencies in `workspace` contai
 # To find workspace container name
 $ docker ps
 
-# Assume that you have laravel_workspace_1 as a container name
-$ docker exec -it laravel_workspace_1 bash
+# Assume that you have laradock_workspace_1 as a container name
+$ docker exec -it laradock_workspace_1 bash
 
-# After login to your workspace container
+# After login to your workspace container, first generate your app key then create your .env file.
+$ php artisan key:generate
+$ cp .env.example .env
+$ vi .env
+
+# Next step is to install dependencies.
 $ composer install
 
 $ npm install
