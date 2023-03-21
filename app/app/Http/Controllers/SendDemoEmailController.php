@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\SendDemo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\RedirectResponse;
  
 class SendDemoEmailController extends Controller
 {
@@ -17,13 +18,27 @@ class SendDemoEmailController extends Controller
      */
     public function demo(Request $request)
     {
-        Mail::to( new class($request->email) {
-            public $email;
+        try {
+            Mail::to( new class($request->email) {
+                public $email;
 
-            public function __construct($email)
-            {
-                $this->email = $email;
-            }
-        })->send(new SendDemo($request->subject, $request->message));
+                public function __construct($email)
+                {
+                    $this->email = $email;
+                }
+            })->send(new SendDemo($request->subject, $request->message));
+        } catch(Exception $e) {
+            return view('redirect', [
+                'url' => 'http://localhost/', 
+                'url_name' => 'Home', 
+                'message' => 'Error email cannot be sent!'
+            ]);
+        }
+        
+        return view('redirect', [
+            'url' => 'http://localhost/', 
+            'url_name' => 'Home', 
+            'message' => 'Email sent successfully!'
+        ]);
     }
 }
