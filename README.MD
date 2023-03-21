@@ -26,8 +26,8 @@ $ docker ps
 # Assume that you have laradock_workspace_1 as a container name
 $ docker exec -it laradock_workspace_1 bash
 
-# After login to your workspace container, first generate your app key then create your .env file.
-$ php artisan key:generate
+# Create your .env file after login to your workspace container.
+
 $ cp .env.example .env
 $ vi .env
 
@@ -35,6 +35,20 @@ $ vi .env
 $ composer install
 
 $ npm install
+
+# Then you have to generate key for your application.
+$ php artisan key:generate
+
+
+# Due to TinyMCE distribution, I have to configure Vite to copy from node_modules into public directory by npm run build.
+# If you not prefer to create minified of the other assets while run on development(run with npm run dev), you can simply copy and paste
+# the node_modules/tinymce as public/build/tinymce .
+
+# Lastly, you may have to run Vite to load TinyMCE and other assets.
+$ npm run build
+
+# If you prefer to run on development run this again.
+$ npm run dev
 ```
 
 Cheers! 
